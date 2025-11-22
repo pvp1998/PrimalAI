@@ -41,22 +41,22 @@ export default function Results() {
 
   return (
     <Layout>
-      <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-black text-white">
+      <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-background text-foreground">
         
         {/* Top Navigation (Overlay) */}
         <div className="relative z-20 p-6 flex justify-between items-start animate-in fade-in slide-in-from-top-4 duration-700">
           <div>
-            <p className="text-xs font-medium tracking-[0.2em] text-white/60 uppercase mb-1">Calisthenics AI</p>
-            <h1 className="text-2xl font-heading font-bold">Handstand</h1>
+            <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase mb-1">Calisthenics AI</p>
+            <h1 className="text-2xl font-heading font-bold text-foreground">Handstand</h1>
           </div>
           <div className="flex gap-3">
-            <Button size="icon" variant="ghost" className="rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white">
+            <Button size="icon" variant="ghost" className="rounded-full bg-black/5 hover:bg-black/10 text-foreground">
               <Share2 className="w-5 h-5" />
             </Button>
             <Button 
               size="icon" 
               variant="ghost" 
-              className="rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white"
+              className="rounded-full bg-black/5 hover:bg-black/10 text-foreground"
               onClick={() => setLocation("/")}
             >
               <X className="w-5 h-5" />
@@ -67,19 +67,19 @@ export default function Results() {
         {/* Main Score Display - Floating & Massive */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-8">
           <div className="flex items-baseline">
-            <span className="text-[12rem] leading-none font-heading font-bold tracking-tighter text-white drop-shadow-2xl">
+            <span className="text-[12rem] leading-none font-heading font-bold tracking-tighter text-foreground drop-shadow-sm">
               {score}
             </span>
-            <span className="text-4xl font-light text-white/40 ml-2">/100</span>
+            <span className="text-4xl font-light text-muted-foreground ml-2">/100</span>
           </div>
           
           {/* Badge */}
           <div className={cn(
-            "mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/20 border border-primary/40 backdrop-blur-md self-start transition-all duration-700",
+            "mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 backdrop-blur-md self-start transition-all duration-700",
             showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           )}>
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-bold text-primary uppercase tracking-wider">Elite Form</span>
+            <span className="text-sm font-bold text-primary-dark uppercase tracking-wider text-[#15803d]">Elite Form</span>
           </div>
 
           {/* Improvement Graph Circle (Mockup from screenshot) */}
@@ -88,20 +88,20 @@ export default function Results() {
             showContent ? "opacity-100 scale-100" : "opacity-0 scale-50"
           )}>
              <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-               <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
+               <circle cx="50" cy="50" r="45" stroke="currentColor" className="text-muted" strokeWidth="2" fill="none" />
                <circle 
                  cx="50" cy="50" r="45" 
-                 stroke="hsl(var(--primary))" 
+                 stroke="#22c55e" 
                  strokeWidth="4" 
                  fill="none" 
                  strokeDasharray="283" 
                  strokeDashoffset="70"
                  strokeLinecap="round"
-                 className="drop-shadow-[0_0_10px_hsl(var(--primary))]"
+                 className="drop-shadow-sm"
                />
              </svg>
              <div className="absolute inset-0 flex items-center justify-center">
-               <ArrowUpRight className="w-8 h-8 text-primary" />
+               <ArrowUpRight className="w-8 h-8 text-[#22c55e]" />
              </div>
           </div>
         </div>
@@ -112,31 +112,31 @@ export default function Results() {
           showContent ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         )}>
           <div className="flex flex-col gap-2">
-             <div className="flex items-center gap-2 text-xs font-medium text-blue-400 uppercase tracking-wider">
+             <div className="flex items-center gap-2 text-xs font-medium text-blue-600 uppercase tracking-wider">
                <Activity className="w-3 h-3" /> Technique
              </div>
-             <span className="text-4xl font-bold text-white">80%</span>
-             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+             <span className="text-4xl font-bold text-foreground">80%</span>
+             <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
                <div className="h-full bg-blue-500 w-[80%]" />
              </div>
           </div>
           
           <div className="flex flex-col gap-2">
-             <div className="flex items-center gap-2 text-xs font-medium text-yellow-400 uppercase tracking-wider">
+             <div className="flex items-center gap-2 text-xs font-medium text-amber-600 uppercase tracking-wider">
                <Zap className="w-3 h-3" /> Stability
              </div>
-             <span className="text-4xl font-bold text-white">75%</span>
-             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-               <div className="h-full bg-yellow-500 w-[75%]" />
+             <span className="text-4xl font-bold text-foreground">75%</span>
+             <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
+               <div className="h-full bg-amber-500 w-[75%]" />
              </div>
           </div>
           
           <div className="flex flex-col gap-2">
-             <div className="flex items-center gap-2 text-xs font-medium text-emerald-400 uppercase tracking-wider">
+             <div className="flex items-center gap-2 text-xs font-medium text-emerald-600 uppercase tracking-wider">
                <Shield className="w-3 h-3" /> Alignment
              </div>
-             <span className="text-4xl font-bold text-white">85%</span>
-             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+             <span className="text-4xl font-bold text-foreground">85%</span>
+             <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
                <div className="h-full bg-emerald-500 w-[85%]" />
              </div>
           </div>
@@ -148,14 +148,14 @@ export default function Results() {
           showContent ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         )}>
            <Button 
-             className="w-full h-14 text-lg font-bold bg-primary text-black hover:bg-primary/90"
+             className="w-full h-14 text-lg font-bold bg-[#22c55e] text-white hover:bg-[#16a34a] shadow-lg shadow-green-500/20"
              onClick={() => setLocation("/video-analysis")}
            >
              View Full Analysis <ChevronRight className="w-5 h-5 ml-1" />
            </Button>
            <Button 
              variant="outline" 
-             className="w-full h-14 text-base font-medium border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+             className="w-full h-14 text-base font-medium border-black/10 bg-white/50 text-foreground hover:bg-white/80"
              onClick={() => setLocation("/video-analysis")}
            >
              <PlayCircle className="w-5 h-5 mr-2" /> Video Breakdown

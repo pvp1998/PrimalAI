@@ -34,41 +34,41 @@
 }
 
 :root {
-  /* "Primal Grand" - Cinematic Dark Mode */
-  --background: 220 40% 2%; /* Nearly black, very deep blue tint */
-  --foreground: 0 0% 100%;
+  /* "Primal Air" - Light Sky/Pastel Theme */
+  --background: 210 60% 98%; /* Very light Alice Blue */
+  --foreground: 222 47% 11%; /* Dark Navy/Slate for contrast */
   
-  /* Glassmorphism Cards */
-  --card: 220 40% 2%;
-  --card-foreground: 0 0% 100%;
+  --card: 0 0% 100%; /* Pure White */
+  --card-foreground: 222 47% 11%;
   
-  --popover: 220 40% 5%;
-  --popover-foreground: 0 0% 100%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
   
-  /* Neon/Cyber Green/Amber Mix - "Elite" Feel */
-  --primary: 142 70% 50%; /* Vibrant Green for success/elite */
-  --primary-foreground: 220 40% 2%;
+  /* Keeping the Elite Green but adjusted for light mode contrast */
+  --primary: 142 76% 36%; /* Slightly darker green for better text contrast on light, or keep vibrant if used as bg */
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222 47% 11%;
   
-  --muted: 217 33% 17%;
-  --muted-foreground: 215 20% 65%;
+  --muted: 210 40% 90%;
+  --muted-foreground: 215 16% 47%;
   
   --accent: 142 70% 50%;
-  --accent-foreground: 220 40% 2%;
+  --accent-foreground: 222 47% 11%;
   
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
   
-  --border: 217 33% 17%;
-  --input: 217 33% 17%;
-  --ring: 142 70% 50%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 142 70% 45%;
   
-  --radius: 1.5rem; /* Larger radius for modern feel */
+  --radius: 1.5rem;
 }
 
 .dark {
+  /* Fallback or if user toggles dark mode later */
   --background: 220 40% 2%;
   --foreground: 0 0% 100%;
   --card: 220 40% 2%;
@@ -104,11 +104,12 @@
 
 /* Utility for glass effects */
 .glass {
-  @apply bg-white/5 backdrop-blur-md border border-white/10;
+  @apply bg-white/60 backdrop-blur-md border border-white/40 shadow-sm;
 }
 
 .glass-dark {
-  @apply bg-black/40 backdrop-blur-xl border border-white/5;
+  /* Renaming to glass-card for general use, but keeping name for compatibility if needed, mapped to light glass */
+  @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm;
 }
 
 /* Custom Scrollbar */
@@ -119,6 +120,6 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
+  background: hsl(var(--muted-foreground) / 0.3);
   border-radius: 4px;
 }

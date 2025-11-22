@@ -12,10 +12,10 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Background Texture */}
+      {/* Background Texture - Light Mode Overlay */}
       <div className="fixed inset-0 z-0">
-        <img src={bgTexture} alt="" className="w-full h-full object-cover opacity-20" />
-        <div className="absolute inset-0 bg-background/90 backdrop-blur-[2px]" />
+        <img src={bgTexture} alt="" className="w-full h-full object-cover opacity-[0.03] mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background" />
       </div>
 
       <div className="relative z-10 flex flex-col h-full">
