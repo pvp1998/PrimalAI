@@ -1,27 +1,40 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import { Share2, ChevronRight, PlayCircle, AlertTriangle, Info, CheckCircle, Activity } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import { Share2, X, Activity, Zap, Shield, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAnalysis } from "@/lib/AnalysisContext";
+import bgImage from "@assets/generated_images/athlete_performing_handstand_silhouette_in_dark_moody_lighting.png";
+import thumb from "@assets/generated_images/person_doing_a_handstand_on_yoga_mat.png";
 
 export default function Results() {
   const [, setLocation] = useLocation();
+  const { addAnalysis } = useAnalysis();
   const [score, setScore] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    // Animate score count up
+    // Animation sequence
     const interval = setInterval(() => {
       setScore((prev) => {
         if (prev >= 82) {
           clearInterval(interval);
-          setTimeout(() => setShowContent(true), 500);
+          setTimeout(() => setShowContent(true), 300);
+          
+          // Add to history once animation completes
+          addAnalysis({
+            id: Date.now().toString(),
+            title: "Handstand Analysis",
+            date: "Just now",
+            score: 82,
+            thumbnail: thumb,
+            skill: "Handstand"
+          });
+          
           return 82;
         }
-        return prev + 2; // Faster count
+        return prev + 2;
       });
     }, 20);
     return () => clearInterval(interval);
@@ -29,152 +42,115 @@ export default function Results() {
 
   return (
     <Layout>
-      <div className="flex-1 flex flex-col bg-background overflow-hidden relative">
+      <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-black text-white">
         
-        {/* Header / Top Section */}
-        <div 
-          className={cn(
-            "flex flex-col items-center justify-center p-6 transition-all duration-700 ease-out",
-            showContent ? "pt-8 pb-6" : "h-screen pb-32"
-          )}
-        >
-          {!showContent && (
-             <h1 className="text-3xl font-heading font-bold mb-8 animate-in fade-in slide-in-from-bottom-4">Analysis Complete</h1>
-          )}
+        {/* Cinematic Background */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={bgImage} 
+            alt="Background" 
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        </div>
 
-          {/* Score Circle */}
-          <div 
-            className={cn(
-               "rounded-full border-8 border-muted relative flex items-center justify-center transition-all duration-700",
-               showContent ? "w-32 h-32 border-4" : "w-56 h-56 border-8"
-            )}
-          >
-            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle
-                className="text-muted stroke-current"
-                strokeWidth={showContent ? "6" : "8"}
-                fill="transparent"
-                r="46"
-                cx="50"
-                cy="50"
-              />
-              <circle
-                className="text-primary stroke-current transition-all duration-1000 ease-out"
-                strokeWidth={showContent ? "6" : "8"}
-                strokeLinecap="round"
-                fill="transparent"
-                r="46"
-                cx="50"
-                cy="50"
-                strokeDasharray="289.02652413026095"
-                strokeDashoffset={289.02652413026095 - (score / 100) * 289.02652413026095}
-              />
-            </svg>
-            <div className="flex flex-col items-center">
-              <span className={cn("font-heading font-bold transition-all", showContent ? "text-3xl" : "text-6xl")}>
-                {score}
-              </span>
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Score</span>
-            </div>
+        {/* Top Navigation (Overlay) */}
+        <div className="relative z-20 p-6 flex justify-between items-start animate-in fade-in slide-in-from-top-4 duration-700">
+          <div>
+            <p className="text-xs font-medium tracking-[0.2em] text-white/60 uppercase mb-1">Calisthenics AI</p>
+            <h1 className="text-2xl font-heading font-bold">Handstand</h1>
           </div>
-
-          {/* Post-Animation Header Content */}
-          <div className={cn("text-center mt-4 space-y-1 transition-opacity duration-500", showContent ? "opacity-100" : "opacity-0 hidden")}>
-            <h2 className="text-lg font-bold">Alex Strength <span className="text-muted-foreground font-normal">#4</span></h2>
-            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20">
-              🎯 HANDSTAND ANALYSIS
-            </Badge>
-            <div className="flex flex-col gap-1 mt-2">
-               <span className="text-sm font-medium text-green-600">📈 +5 points from last attempt</span>
-               <span className="text-xs text-muted-foreground">📊 Better than 68% of users</span>
-            </div>
+          <div className="flex gap-3">
+            <Button size="icon" variant="ghost" className="rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white">
+              <Share2 className="w-5 h-5" />
+            </Button>
+            <Button 
+              size="icon" 
+              variant="ghost" 
+              className="rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white"
+              onClick={() => setLocation("/")}
+            >
+              <X className="w-5 h-5" />
+            </Button>
           </div>
         </div>
 
-        {/* Main Content Area (Fades In) */}
-        <div className={cn("flex-1 px-6 pb-24 overflow-y-auto transition-all duration-700 delay-300", showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20")}>
+        {/* Main Score Display - Floating & Massive */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-8">
+          <div className="flex items-baseline">
+            <span className="text-[12rem] leading-none font-heading font-bold tracking-tighter text-white drop-shadow-2xl">
+              {score}
+            </span>
+            <span className="text-4xl font-light text-white/40 ml-2">/100</span>
+          </div>
           
-          {/* Split Section */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            {/* Issues Summary */}
-            <div className="bg-card rounded-xl p-4 shadow-sm border border-border/50">
-              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-muted-foreground" /> Issues
-              </h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-red-500" /> Critical</span>
-                  <span className="font-bold">2</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-orange-500" /> Medium</span>
-                  <span className="font-bold">3</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-yellow-500" /> Low</span>
-                  <span className="font-bold">1</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Score Breakdown */}
-            <div className="bg-card rounded-xl p-4 shadow-sm border border-border/50">
-              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-                <Activity className="w-4 h-4 text-muted-foreground" /> Breakdown
-              </h3>
-              <div className="space-y-3">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-                    <span>Technique</span>
-                    <span>80%</span>
-                  </div>
-                  <Progress value={80} className="h-1.5" />
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-                    <span>Power</span>
-                    <span>85%</span>
-                  </div>
-                  <Progress value={85} className="h-1.5" />
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-                    <span>Stability</span>
-                    <span>75%</span>
-                  </div>
-                  <Progress value={75} className="h-1.5" />
-                </div>
-              </div>
-            </div>
+          {/* Badge */}
+          <div className={cn(
+            "mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/20 border border-primary/40 backdrop-blur-md self-start transition-all duration-700",
+            showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          )}>
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm font-bold text-primary uppercase tracking-wider">Elite Form</span>
           </div>
 
-          {/* Top Insight */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl p-4 mb-6">
-            <div className="flex gap-3">
-               <div className="bg-green-100 p-2 rounded-full h-fit">
-                 <CheckCircle className="w-5 h-5 text-green-600" />
-               </div>
-               <div>
-                 <h4 className="font-bold text-green-800 text-sm">Great Body Alignment</h4>
-                 <p className="text-xs text-green-700 mt-1 leading-relaxed">
-                   Your shoulder-hip-ankle line is nearly perfect during the hold phase. Keep this up!
-                 </p>
-               </div>
-            </div>
+          {/* Improvement Graph Circle (Mockup from screenshot) */}
+          <div className={cn(
+            "absolute right-4 bottom-1/3 w-32 h-32 transition-all duration-1000 delay-300",
+            showContent ? "opacity-100 scale-100" : "opacity-0 scale-50"
+          )}>
+             <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+               <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
+               <circle 
+                 cx="50" cy="50" r="45" 
+                 stroke="hsl(var(--primary))" 
+                 strokeWidth="4" 
+                 fill="none" 
+                 strokeDasharray="283" 
+                 strokeDashoffset="70"
+                 strokeLinecap="round"
+                 className="drop-shadow-[0_0_10px_hsl(var(--primary))]"
+               />
+             </svg>
+             <div className="absolute inset-0 flex items-center justify-center">
+               <ArrowUpRight className="w-8 h-8 text-primary" />
+             </div>
           </div>
-
         </div>
 
-        {/* Fixed Bottom Actions */}
-        <div className={cn("absolute bottom-0 left-0 right-0 p-6 bg-white/80 backdrop-blur-md border-t border-border transition-all duration-700 delay-500", showContent ? "translate-y-0" : "translate-y-full")}>
-           <div className="flex flex-col gap-3">
-              <Button className="w-full h-12 text-lg font-bold shadow-lg shadow-primary/20" onClick={() => setLocation("/video-analysis")}>
-                View Full Analysis <ChevronRight className="w-5 h-5 ml-1" />
-              </Button>
-              <Button variant="outline" className="w-full h-12 text-base font-medium border-border bg-white hover:bg-slate-50">
-                <PlayCircle className="w-4 h-4 mr-2" /> Video Breakdown
-              </Button>
-           </div>
+        {/* Bottom Stats - Grand & Clean */}
+        <div className={cn(
+          "relative z-20 p-8 pt-0 pb-12 grid grid-cols-3 gap-4 transition-all duration-700 delay-500",
+          showContent ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+        )}>
+          <div className="flex flex-col gap-2">
+             <div className="flex items-center gap-2 text-xs font-medium text-blue-400 uppercase tracking-wider">
+               <Activity className="w-3 h-3" /> Technique
+             </div>
+             <span className="text-4xl font-bold text-white">80%</span>
+             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+               <div className="h-full bg-blue-500 w-[80%]" />
+             </div>
+          </div>
+          
+          <div className="flex flex-col gap-2">
+             <div className="flex items-center gap-2 text-xs font-medium text-yellow-400 uppercase tracking-wider">
+               <Zap className="w-3 h-3" /> Stability
+             </div>
+             <span className="text-4xl font-bold text-white">75%</span>
+             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+               <div className="h-full bg-yellow-500 w-[75%]" />
+             </div>
+          </div>
+          
+          <div className="flex flex-col gap-2">
+             <div className="flex items-center gap-2 text-xs font-medium text-emerald-400 uppercase tracking-wider">
+               <Shield className="w-3 h-3" /> Alignment
+             </div>
+             <span className="text-4xl font-bold text-white">85%</span>
+             <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+               <div className="h-full bg-emerald-500 w-[85%]" />
+             </div>
+          </div>
         </div>
 
       </div>
