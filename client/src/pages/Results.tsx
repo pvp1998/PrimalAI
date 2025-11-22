@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import { Share2, X, Activity, Zap, Shield, ArrowUpRight } from "lucide-react";
+import { Share2, X, Activity, Zap, Shield, ArrowUpRight, ChevronRight, PlayCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAnalysis } from "@/lib/AnalysisContext";
-import bgImage from "@assets/generated_images/athlete_performing_handstand_silhouette_in_dark_moody_lighting.png";
 import thumb from "@assets/generated_images/person_doing_a_handstand_on_yoga_mat.png";
 
 export default function Results() {
@@ -44,16 +43,6 @@ export default function Results() {
     <Layout>
       <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-black text-white">
         
-        {/* Cinematic Background */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={bgImage} 
-            alt="Background" 
-            className="w-full h-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-        </div>
-
         {/* Top Navigation (Overlay) */}
         <div className="relative z-20 p-6 flex justify-between items-start animate-in fade-in slide-in-from-top-4 duration-700">
           <div>
@@ -119,7 +108,7 @@ export default function Results() {
 
         {/* Bottom Stats - Grand & Clean */}
         <div className={cn(
-          "relative z-20 p-8 pt-0 pb-12 grid grid-cols-3 gap-4 transition-all duration-700 delay-500",
+          "relative z-20 px-8 pt-0 pb-8 grid grid-cols-3 gap-4 transition-all duration-700 delay-500",
           showContent ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         )}>
           <div className="flex flex-col gap-2">
@@ -151,6 +140,26 @@ export default function Results() {
                <div className="h-full bg-emerald-500 w-[85%]" />
              </div>
           </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className={cn(
+          "relative z-20 px-8 pb-8 flex flex-col gap-3 transition-all duration-700 delay-700",
+          showContent ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+        )}>
+           <Button 
+             className="w-full h-14 text-lg font-bold bg-primary text-black hover:bg-primary/90"
+             onClick={() => setLocation("/video-analysis")}
+           >
+             View Full Analysis <ChevronRight className="w-5 h-5 ml-1" />
+           </Button>
+           <Button 
+             variant="outline" 
+             className="w-full h-14 text-base font-medium border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+             onClick={() => setLocation("/video-analysis")}
+           >
+             <PlayCircle className="w-5 h-5 mr-2" /> Video Breakdown
+           </Button>
         </div>
 
       </div>
