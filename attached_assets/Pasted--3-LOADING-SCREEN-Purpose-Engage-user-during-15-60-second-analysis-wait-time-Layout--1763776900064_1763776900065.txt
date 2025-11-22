@@ -1,0 +1,96 @@
+
+### 3. LOADING SCREEN
+
+**Purpose**: Engage user during 15-60 second analysis wait time
+
+**Layout**:
+- Full-screen experience
+
+**Component Notes**:
+- Animation should be smooth and modern (not boring)
+- Status text should update every 3-5 seconds
+- Consider skeleton loading effects or particle animations
+- Should feel premium, not like a typical spinner
+
+---
+
+### 4. RESULTS SCREEN (Score Reveal)
+
+**Purpose**: Celebrate results and encourage sharing
+
+**Animation Sequence** (2-3 seconds total):
+1. Screen loads with circular meter in center
+2. Meter animates from 0 to final score (e.g., 82)
+3. Meter shrinks and moves to top of screen
+4. Other content fades in
+
+**Layout** (after animation):
+
+**Top Section**:
+- name of the user and attempt number
+- Skill badge: "🎯 HANDSTAND ANALYSIS"
+- Large circular score display: "82/100"
+- Improvement indicator: "📈 +5 points from last attempt"
+- Percentile ranking: "📊 Better than 68% of users"
+
+Mid to bottom section
+
+Left Half: "Issues Summary"
+- Show total issues by severity with counts:
+  * Critical 🔴: 2 issues
+  * Medium 🟠: 3 issues
+  * Low 🟡: 1 issue
+
+Right Half: "Score Breakdown"
+- Three sub-scores with progress bars:
+  * Technique: 80%
+  * Completeness: 85%
+  * Stability: 75%
+
+**Action Buttons** (fixed at bottom):
+- "View Full Analysis"
+- "Vide breakdown"
+
+**Component Notes**:
+- Score animation should feel satisfying (ease-out curve)
+- Circular progress ring should be prominent
+- Score breakdown should be less prominent than main score but still clear
+- Entire screen should feel celebratory for high scores, encouraging for lower scores
+
+---
+
+### 5. VIDEO ANALYSIS SCREEN (Video breakdown secret)
+
+**Purpose**: Detailed form breakdown with playable video
+
+**Layout**:
+
+**Top Half (50% of screen)**:
+- Video player with skeleton overlay
+- Playback controls: play/pause, scrubber
+- Timeline below video with issue markers:
+  * Colored dots on timeline indicating where issues occur
+  * Each dot represents start of an issue
+  * Dots colored by severity (red, orange, yellow)
+
+**Bottom Half (50% of screen)**:
+- Horizontal carousel of issue cards (scrollable)
+- Each card shows:
+  * Issue name (e.g., "Bent Elbows")
+  * Severity indicator (🔴/🟠/🟡)
+  * Timestamp range: "00:02 - 00:05"
+  * Brief description (1-2 sentences)
+  
+**Interaction**:
+- Tapping an issue card jumps video to that timestamp
+- Video plays the issue segment
+- Active card is highlighted in carousel
+- Tapping timeline marker also jumps to that issue
+
+**Component Notes**:
+- Video player should be large and prominent
+- Timeline markers should be tappable
+- Issue cards should be substantial (not tiny)
+- Active/selected states should be clear
+- Smooth scroll between cards
+- Video scrubbing should be responsive

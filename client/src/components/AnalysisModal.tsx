@@ -30,11 +30,10 @@ export function AnalysisModal() {
 
   const handleAnalyze = () => {
     setIsAnalyzing(true);
-    // Simulate analysis time
     setTimeout(() => {
       setIsAnalyzing(false);
-      setLocation("/results");
-    }, 2000);
+      setLocation("/loading"); // Changed from /results to /loading
+    }, 500);
   };
 
   const resetFlow = () => {
