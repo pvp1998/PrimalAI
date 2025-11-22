@@ -1,0 +1,84 @@
+# Primal AI - iOS UI Design Brief
+
+## Project Overview
+Design a modern, native iOS UI for Primal AI, a calisthenics form analysis app. The app should feel sleek, intuitive, and professional with smooth animations and a shareable-first mindset.
+
+Stack: React Native, Expo, TypeScript for iOS
+
+────────
+
+## User Flow
+
+### Flow: Home → Analysis → Loading → Results → Video Analysis
+
+1. User opens app → Home Screen
+2. User taps "Analyze Video" button → Analysis Modal (bottom sheet, 3 steps)
+3. User selects skill, video, trims → taps "Analyze" → Loading Screen
+4. Analysis completes → Results Screen (animated score reveal)
+5. User taps "View Analysis" → Video Analysis Screen (detailed breakdown)
+6. User can share results from Results Screen → Shareable Card generated
+
+────────
+
+## Screen Specifications
+
+### 1. HOME SCREEN
+
+Purpose: Welcome hub with quick stats and recent activity
+
+Layout:
+- Header: "Welcome, [User Name]"
+- Top-right: Settings icon (navigates to profile/account settings)
+- Quick Stats Section: Display 4 key metrics in a grid
+  * Videos Analyzed (count)
+  * Unique Skills Practiced (count)
+  * Current Streak (days)
+  * Best Score (number)
+- Recent History: List of last 3-5 video analyses with thumbnails and scores
+- Bottom: Fixed "Analyze Video" button (prominent, primary CTA)
+
+Component Notes:
+- Stats cards should be easily scannable
+- Recent history items should be tappable (navigate to past results)
+- Primary button should stand out visually
+
+────────
+
+### 2. ANALYSIS MODAL (Bottom Sheet)
+
+Purpose: Guide user through video selection process
+
+Behavior: Slides up from bottom, dismissible by swipe down
+
+Step 1: Skill Selection
+- Progress indicator: "Step 1 of 3"
+- Dropdown/searchable list of calisthenics skills:
+  * Handstand
+  * Muscle-Up
+  * Front Lever
+  * Planche
+  * Pistol Squat
+  * (etc.)
+- "Next" button becomes active after selection
+
+Step 2: Video Selection
+- Progress indicator: "Step 2 of 3"
+- Button: "Select from Gallery"
+- Once selected, show video thumbnail
+- "Next" button
+
+Step 3: Preview & Trim
+- Progress indicator: "Step 3 of 3"
+- Video player with selected video
+- Trim controls (start/end markers on timeline)
+- Play/pause controls
+- Loop toggle
+- Bottom actions:
+  * "Analyze" button (primary, prominent)
+  * "Discard" button (secondary, subtle)
+
+Component Notes:
+- Bottom sheet should have rounded top corners
+- Progress indicator should be clear (dots or steps)
+- Smooth transitions between steps
+- Video player should be functional with clear controls
